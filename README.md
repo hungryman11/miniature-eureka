@@ -145,3 +145,4 @@ ANTHROPIC_API_KEY=sk-ant-api03-...
 ---
 
 Built with React + Vite + Vercel Edge Functions + Claude API.
+>>>>>>> 31690876c05307183761ee1fa9530ab11ba8bcb8
