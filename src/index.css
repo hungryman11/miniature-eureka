@@ -395,7 +395,7 @@ body {
 }
 
 .btn-next:hover { background: var(--gold); color: var(--ink); }
-.btn-next.inactive { opacity: 0.4; }
+.btn-next.inactive { opacity: 0.4; cursor: not-allowed; }
 .btn-next.inactive:hover { background: var(--ink); color: var(--paper); cursor: not-allowed; }
 
 .btn-next.gold {

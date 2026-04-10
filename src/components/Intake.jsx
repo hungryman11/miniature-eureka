@@ -173,13 +173,16 @@ export default function Intake({ onSubmit, error }) {
   };
 
   const next = () => {
+    console.log("BUTTON CLICKED - isValid:", isValid(), "current:", current, "answers:", answers);
     if (!isValid()) {
       console.log("Not valid, staying on this question");
       return;
     }
     if (current < QUESTIONS.length - 1) {
+      console.log("Moving to next question");
       setCurrent(c => c + 1);
     } else {
+      console.log("Submitting answers");
       onSubmit(answers);
     }
   };
@@ -299,7 +302,9 @@ export default function Intake({ onSubmit, error }) {
           <button
             type="button"
             className={`btn-next ${current === QUESTIONS.length - 1 ? "gold" : ""} ${!isValid() ? "inactive" : ""}`}
-            onTouchStart={(e) => { e.preventDefault(); next(); }}
+            onClick={next}
+            onTouchStart={next}
+            onPointerDown={next}
           >
             {current === QUESTIONS.length - 1 ? "Generate My 100 →" : "Continue →"}
           </button>
