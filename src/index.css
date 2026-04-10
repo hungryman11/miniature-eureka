@@ -392,11 +392,13 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
-.btn-next:hover:not(.inactive) { background: var(--gold); color: var(--ink); }
-.btn-next.inactive { opacity: 0.4; cursor: not-allowed; }
-.btn-next.inactive:active { opacity: 0.4; }
+.btn-next:hover:not(:disabled) { background: var(--gold); color: var(--ink); }
+.btn-next:disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
 
 .btn-next.gold {
   background: var(--gold);
@@ -405,7 +407,7 @@ body {
   font-size: 15px;
 }
 
-.btn-next.gold:hover { background: var(--gold-light); }
+.btn-next.gold:hover:not(:disabled) { background: var(--gold-light); }
 
 .error-banner {
   background: #fef2f2;
@@ -814,43 +816,46 @@ body {
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 768px) {
-  .intake { grid-template-columns: 1fr; }
+  .intake { grid-template-columns: 1fr; height: 100vh; overflow: hidden; }
   .intake-left { position: static; height: auto; padding: 40px 24px; }
   .intake-right { 
-    padding: 32px 24px 32px; 
-    padding-bottom: calc(32px + 120px);
+    height: 100vh;
+    overflow-y: auto;
+    padding: 32px 24px 120px;
+    display: flex;
+    flex-direction: column;
   }
   .intake-hero h1 { font-size: 32px; }
-  .results-header { padding: 32px 24px; }
-  .results-title { font-size: 32px; }
-  .results-body { padding: 24px; }
-  .opps-grid { grid-template-columns: 1fr; }
-  .options-grid.triple { grid-template-columns: 1fr 1fr; }
-  
+  .question-block { flex: 1; }
   .nav-row {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 12px 24px 16px;
+    padding: 16px 24px;
     background: var(--cream);
     border-top: 1px solid var(--border);
     z-index: 999;
-    box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
     display: flex;
-    justify-content: space-between;
+    gap: 12px;
     align-items: center;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+    height: 80px;
   }
-  
-  .btn-back, .btn-next {
-    padding: 14px 20px;
-    font-size: 14px;
+  .btn-back {
+    flex-shrink: 0;
+    padding: 14px 16px;
     min-height: 48px;
-    min-width: 100px;
   }
-  
   .btn-next {
     flex: 1;
-    margin-left: 12px;
+    padding: 14px 20px;
+    min-height: 48px;
+    font-size: 15px;
   }
+  .results-header { padding: 32px 24px; }
+  .results-title { font-size: 32px; }
+  .results-body { padding: 24px; }
+  .opps-grid { grid-template-columns: 1fr; }
+  .options-grid.triple { grid-template-columns: 1fr 1fr; }
 }

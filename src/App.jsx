@@ -1,13 +1,10 @@
 import { useState } from "react";
 import Intake from "./components/Intake";
 import Results from "./components/Results";
-import IntakeTest from "./components/IntakeTest";
 import "./index.css";
 
 export default function App() {
-  // Temporarily testing intake logic
-  return <IntakeTest />;
-  const [stage, setStage] = useState("intake"); // intake | loading | results
+  const [stage, setStage] = useState("intake");
   const [userData, setUserData] = useState(null);
   const [opportunities, setOpportunities] = useState([]);
   const [error, setError] = useState(null);
@@ -72,22 +69,25 @@ function LoadingScreen({ userData }) {
     "Finding opportunities most people never see...",
     "Almost there — curating your top 100 opportunities...",
   ];
+
   const [msgIndex, setMsgIndex] = useState(0);
 
   useState(() => {
     const interval = setInterval(() => {
-      setMsgIndex((i) => (i + 1) % messages.length);
-    }, 2200);
+      setMsgIndex(m => (m + 1) % messages.length);
+    }, 2500);
     return () => clearInterval(interval);
   }, []);
 
   return (
     <div className="loading-screen">
       <div className="loading-orb" />
-      <div className="loading-name">{userData?.name?.split(" ")[0] || "You"}</div>
+      <div className="loading-name">{userData?.name || "Friend"}</div>
       <div className="loading-msg">{messages[msgIndex]}</div>
       <div className="loading-dots">
-        <span /><span /><span />
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </div>
   );
