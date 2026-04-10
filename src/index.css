@@ -392,13 +392,11 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  touch-action: manipulation;
-  -webkit-user-select: none;
-  user-select: none;
 }
 
-.btn-next:hover:not(:disabled) { background: var(--gold); color: var(--ink); }
-.btn-next:disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+.btn-next:hover { background: var(--gold); color: var(--ink); }
+.btn-next.inactive { opacity: 0.4; }
+.btn-next.inactive:hover { background: var(--ink); color: var(--paper); cursor: not-allowed; }
 
 .btn-next.gold {
   background: var(--gold);
@@ -407,7 +405,7 @@ body {
   font-size: 15px;
 }
 
-.btn-next.gold:hover:not(:disabled) { background: var(--gold-light); }
+.btn-next.gold:hover { background: var(--gold-light); }
 
 .error-banner {
   background: #fef2f2;

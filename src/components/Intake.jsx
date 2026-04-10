@@ -173,6 +173,10 @@ export default function Intake({ onSubmit, error }) {
   };
 
   const next = () => {
+    if (!isValid()) {
+      console.log("Not valid, staying on this question");
+      return;
+    }
     if (current < QUESTIONS.length - 1) {
       setCurrent(c => c + 1);
     } else {
@@ -289,14 +293,13 @@ export default function Intake({ onSubmit, error }) {
         {/* Nav */}
         <div className="nav-row">
           {current > 0 ? (
-            <button className="btn-back" onClick={back}>← Back</button>
+            <button type="button" className="btn-back" onClick={back}>← Back</button>
           ) : <div />}
 
           <button
             type="button"
-            className={`btn-next ${current === QUESTIONS.length - 1 ? "gold" : ""}`}
+            className={`btn-next ${current === QUESTIONS.length - 1 ? "gold" : ""} ${!isValid() ? "inactive" : ""}`}
             onClick={next}
-            disabled={!isValid()}
           >
             {current === QUESTIONS.length - 1 ? "Generate My 100 →" : "Continue →"}
           </button>
