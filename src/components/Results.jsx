@@ -173,28 +173,29 @@ function OppCard({ opp, index, onAutomate }) {
 }
 
 function AutomateModal({ userData, selectedOpp, opportunities, webhookPayload, onClose, copied, onCopy }) {
-  const [platform, setPlatform] = useState("zapier");
+  const [platform, setPlatform] = useState("n8n");
 
-  const zapierSteps = [
-    "Go to zapier.com → Create Zap",
-    'Trigger: "Webhooks by Zapier" → Catch Hook → Copy the webhook URL',
-    'Action 1: "Claude AI" or "OpenAI" → Send prompt using the payload below',
-    'Action 2: "Gmail" → Send Email — use output from step above as body',
-    "Turn on your Zap — it will fire every time you hit the webhook",
+  const n8nSteps = [
+    "Go to n8n.cloud or your self-hosted n8n → Create a workflow",
+    'Add a Webhook trigger → Copy the webhook URL',
+    'Add an HTTP Request node → POST to your Gemini/email endpoint with the payload below',
+    'Add a Gmail node → Send Email using the AI response',
+    'Add a Delay node to wait 2 seconds between emails if sending in bulk',
+    "Activate the workflow",
   ];
 
   const makeSteps = [
     "Go to make.com → Create Scenario",
     'Add module: "Webhooks" → Custom Webhook → Copy URL',
-    'Add module: "HTTP" → Make a Request → POST to Anthropic API with payload',
+    'Add module: "HTTP" → Make a Request → POST to Gemini or your email endpoint with payload',
     'Add module: "Gmail" → Send an Email using the AI response',
     'Use Make\'s "Iterator" to loop through all 100 if sending in bulk',
     "Activate the scenario",
   ];
 
-  const steps = platform === "zapier" ? zapierSteps : makeSteps;
+  const steps = platform === "n8n" ? n8nSteps : makeSteps;
 
-  const claudePrompt = `You are an expert application writer. Write a personalized, compelling application email for the following opportunity.
+  const emailPrompt = `You are an expert application writer. Write a personalized, compelling application email for the following opportunity.
 
 USER PROFILE:
 - Name: ${userData?.name}
@@ -222,13 +223,13 @@ Write a genuine, specific email under 300 words. Professional but human. End wit
           {selectedOpp ? `Automate: ${selectedOpp.name}` : `Automate All ${opportunities.length} Emails`}
         </div>
         <div className="modal-sub">
-          Connect to Zapier or Make.com to send emails automatically from your own inbox.
+          Connect to n8n or Make.com to send emails automatically from your own inbox.
         </div>
 
         {/* Platform tabs */}
         <div className="platform-tabs">
-          <button className={`platform-tab ${platform === "zapier" ? "active" : ""}`} onClick={() => setPlatform("zapier")}>
-            Zapier
+          <button className={`platform-tab ${platform === "n8n" ? "active" : ""}`} onClick={() => setPlatform("n8n")}>
+            n8n
           </button>
           <button className={`platform-tab ${platform === "make" ? "active" : ""}`} onClick={() => setPlatform("make")}>
             Make.com
@@ -248,11 +249,11 @@ Write a genuine, specific email under 300 words. Professional but human. End wit
           </ul>
         </div>
 
-        {/* Claude Prompt */}
+        {/* Email Prompt */}
         <div className="modal-section">
-          <label>Claude Prompt to Use</label>
-          <div className="webhook-box">{claudePrompt}</div>
-          <button className="copy-btn" onClick={() => navigator.clipboard.writeText(claudePrompt)}>
+          <label>Email Prompt to Use</label>
+          <div className="webhook-box">{emailPrompt}</div>
+          <button className="copy-btn" onClick={() => navigator.clipboard.writeText(emailPrompt)}>
             Copy Prompt
           </button>
         </div>
@@ -269,7 +270,7 @@ Write a genuine, specific email under 300 words. Professional but human. End wit
         </div>
 
         <div style={{ fontSize: 12, color: "var(--muted)", marginTop: 16, lineHeight: 1.6 }}>
-          💡 <strong>Tip:</strong> Add a 2-second delay between emails in {platform === "zapier" ? "Zapier's delay step" : "Make's sleep module"} to avoid spam filters. Emails send from your own Gmail — maximum deliverability.
+          💡 <strong>Tip:</strong> Add a 2-second delay between emails in {platform === "n8n" ? "n8n's Delay node" : "Make's sleep module"} to avoid spam filters. Emails send from your own Gmail — maximum deliverability.
         </div>
       </div>
     </div>

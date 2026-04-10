@@ -1,7 +1,4 @@
-export const config = { runtime: "edge" };
-
-import fs from 'fs';
-import path from 'path';
+import opportunities from './data/opportunities.json';
 
 // Scoring function - no AI required
 function calculateScore(opportunity, userProfile) {
@@ -119,11 +116,7 @@ export default async function handler(req) {
 
   try {
     const userProfile = await req.json();
-
-    // Load opportunities dataset
-    const opportunitiesPath = path.join(process.cwd(), 'api', 'data', 'opportunities.json');
-    const opportunitiesData = fs.readFileSync(opportunitiesPath, 'utf8');
-    const allOpportunities = JSON.parse(opportunitiesData);
+    const allOpportunities = opportunities;
 
     // Score each opportunity
     const scoredOpportunities = allOpportunities.map(opportunity => ({
@@ -133,10 +126,10 @@ export default async function handler(req) {
       match: Math.min(Math.max(calculateScore(opportunity, userProfile), 60), 98) // Match % between 60-98
     }));
 
-    // Sort by score and return top 30
+    // Sort by score and return top 100
     const topOpportunities = scoredOpportunities
       .sort((a, b) => b.score - a.score)
-      .slice(0, 30);
+      .slice(0, 100);
 
     return new Response(JSON.stringify({ opportunities: topOpportunities }), {
       status: 200,

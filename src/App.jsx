@@ -15,7 +15,7 @@ export default function App() {
     setError(null);
 
     try {
-      const res = await fetch("/api/generate", {
+      const res = await fetch("/api/match", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(answers),
@@ -67,7 +67,7 @@ function LoadingScreen({ userData }) {
     "Scanning fellowships across 6 continents...",
     "Matching your drive to what's out there...",
     "Finding opportunities most people never see...",
-    "Almost there — curating your 100...",
+    "Almost there — curating your top 100 opportunities...",
   ];
   const [msgIndex, setMsgIndex] = useState(0);
 
