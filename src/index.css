@@ -815,11 +815,28 @@ body {
 @media (max-width: 768px) {
   .intake { grid-template-columns: 1fr; }
   .intake-left { position: static; height: auto; padding: 40px 24px; }
-  .intake-right { padding: 32px 24px; }
+  .intake-right { padding: 32px 24px 200px; }
   .intake-hero h1 { font-size: 32px; }
   .results-header { padding: 32px 24px; }
   .results-title { font-size: 32px; }
   .results-body { padding: 24px; }
   .opps-grid { grid-template-columns: 1fr; }
   .options-grid.triple { grid-template-columns: 1fr 1fr; }
+  
+  .nav-row {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px 24px;
+    background: var(--cream);
+    border-top: 1px solid var(--border);
+    z-index: 50;
+  }
+  
+  .btn-back, .btn-next {
+    padding: 16px 20px;
+    font-size: 15px;
+    min-height: 48px;
+  }
 }
