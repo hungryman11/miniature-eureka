@@ -142,9 +142,20 @@ export default function Intake({ onSubmit, error }) {
 
   const isValid = () => {
     if (q.optional) return true;
-    if (!value) return false;
-    if (q.multiple) return Array.isArray(value) && value.length > 0;
-    return value.toString().trim().length > 0;
+    
+    if (q.multiple) {
+      return Array.isArray(value) && value.length > 0;
+    }
+    
+    if (q.type === "text" || q.type === "textarea") {
+      return value && String(value).trim().length > 0;
+    }
+    
+    if (q.type === "options") {
+      return value !== undefined && value !== null && value !== "";
+    }
+    
+    return false;
   };
 
   const handleOption = (optValue) => {
