@@ -299,7 +299,7 @@ export default function Intake({ onSubmit, error }) {
           <button
             type="button"
             className={`btn-next ${current === QUESTIONS.length - 1 ? "gold" : ""} ${!isValid() ? "inactive" : ""}`}
-            onTouchEnd={(e) => { e.preventDefault(); next(); }}
+            onTouchStart={(e) => { e.preventDefault(); next(); }}
           >
             {current === QUESTIONS.length - 1 ? "Generate My 100 →" : "Continue →"}
           </button>
