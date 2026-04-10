@@ -1,94 +1,59 @@
 import { useState } from "react";
-import Intake from "./components/Intake";
-import Results from "./components/Results";
 import "./index.css";
 
 export default function App() {
-  const [stage, setStage] = useState("intake");
-  const [userData, setUserData] = useState(null);
-  const [opportunities, setOpportunities] = useState([]);
-  const [error, setError] = useState(null);
-
-  const handleSubmit = async (answers) => {
-    setUserData(answers);
-    setStage("loading");
-    setError(null);
-
-    try {
-      const res = await fetch("/api/match", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(answers),
-      });
-
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || "Generation failed");
-      }
-
-      const data = await res.json();
-      setOpportunities(data.opportunities);
-      setStage("results");
-    } catch (err) {
-      setError(err.message);
-      setStage("intake");
-    }
-  };
-
-  const handleReset = () => {
-    setStage("intake");
-    setUserData(null);
-    setOpportunities([]);
-    setError(null);
-  };
+  const [text, setText] = useState("");
 
   return (
-    <div className="app">
-      {stage === "intake" && (
-        <Intake onSubmit={handleSubmit} error={error} />
-      )}
-      {stage === "loading" && (
-        <LoadingScreen userData={userData} />
-      )}
-      {stage === "results" && (
-        <Results
-          opportunities={opportunities}
-          userData={userData}
-          onReset={handleReset}
-        />
-      )}
+    <div style={{ padding: "20px", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+      <h1>MOBILE BUTTON TEST</h1>
+      
+      <input
+        type="text"
+        value={text}
+        onChange={(e) => {
+          console.log("Input change:", e.target.value);
+          setText(e.target.value);
+        }}
+        placeholder="Type something..."
+        style={{
+          padding: "12px",
+          fontSize: "16px",
+          marginBottom: "20px",
+          width: "200px",
+          border: "2px solid #ccc",
+        }}
+        autoFocus
+      />
+
+      <p><strong>Text entered:</strong> "{text}"</p>
+      <p><strong>Text length:</strong> {text.length}</p>
+
+      <button
+        onClick={() => {
+          console.log("Button clicked!");
+          if (text.trim()) {
+            alert("Success! Text: " + text);
+          }
+        }}
+        disabled={text.trim().length === 0}
+        style={{
+          padding: "15px 30px",
+          fontSize: "18px",
+          backgroundColor: text.trim() ? "#000" : "#ccc",
+          color: "#fff",
+          border: "none",
+          borderRadius: "8px",
+          cursor: text.trim() ? "pointer" : "not-allowed",
+          minHeight: "50px",
+          minWidth: "200px",
+          fontWeight: "bold",
+          marginTop: "20px",
+        }}
+      >
+        {text.trim() ? "✓ CLICK ME" : "Type first"}
+      </button>
     </div>
   );
 }
 
-function LoadingScreen({ userData }) {
-  const messages = [
-    "Reading between the lines of your dream...",
-    "Scanning fellowships across 6 continents...",
-    "Matching your drive to what's out there...",
-    "Finding opportunities most people never see...",
-    "Almost there — curating your top 100 opportunities...",
-  ];
-
-  const [msgIndex, setMsgIndex] = useState(0);
-
-  useState(() => {
-    const interval = setInterval(() => {
-      setMsgIndex(m => (m + 1) % messages.length);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="loading-screen">
-      <div className="loading-orb" />
-      <div className="loading-name">{userData?.name || "Friend"}</div>
-      <div className="loading-msg">{messages[msgIndex]}</div>
-      <div className="loading-dots">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  );
-}
