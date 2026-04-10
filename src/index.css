@@ -815,7 +815,10 @@ body {
 @media (max-width: 768px) {
   .intake { grid-template-columns: 1fr; }
   .intake-left { position: static; height: auto; padding: 40px 24px; }
-  .intake-right { padding: 32px 24px 200px; }
+  .intake-right { 
+    padding: 32px 24px 32px; 
+    padding-bottom: calc(32px + 100px);
+  }
   .intake-hero h1 { font-size: 32px; }
   .results-header { padding: 32px 24px; }
   .results-title { font-size: 32px; }
@@ -832,6 +835,7 @@ body {
     background: var(--cream);
     border-top: 1px solid var(--border);
     z-index: 50;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
   }
   
   .btn-back, .btn-next {

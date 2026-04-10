@@ -238,12 +238,14 @@ export default function Intake({ onSubmit, error }) {
           {/* Text input */}
           {q.type === "text" && (
             <input
+              type="text"
               className="text-input"
               placeholder={q.placeholder}
               value={value || ""}
               onChange={e => setAnswers(p => ({ ...p, [q.id]: e.target.value }))}
               onKeyDown={e => e.key === "Enter" && isValid() && next()}
               autoFocus
+              spellCheck="false"
             />
           )}
 
@@ -255,6 +257,7 @@ export default function Intake({ onSubmit, error }) {
               placeholder={q.placeholder}
               value={value || ""}
               onChange={e => setAnswers(p => ({ ...p, [q.id]: e.target.value }))}
+              spellCheck="false"
               autoFocus
             />
           )}
