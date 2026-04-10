@@ -826,7 +826,7 @@ body {
   .intake-hero h1 { font-size: 32px; }
   .question-block { flex: 1; }
   .nav-row {
-    position: sticky;
+    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
