@@ -198,6 +198,8 @@ export default function Intake({ onSubmit, error }) {
 
   const back = () => setCurrent(c => c - 1);
 
+  console.log("INTAKE RENDER - current:", current, "isValid:", isValid(), "value:", value);
+
   const isSelected = (optValue) => {
     if (q.multiple) return Array.isArray(value) && value.includes(optValue);
     return value === optValue;
