@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const QUESTIONS = [
   {
@@ -139,6 +139,15 @@ export default function Intake({ onSubmit, error }) {
 
   const q = QUESTIONS[current];
   const value = answers[q.id];
+
+  // Global touch debug
+  useEffect(() => {
+    const handleGlobalTouch = (e) => {
+      console.log("GLOBAL TOUCH:", e.target.className, e.target.tagName);
+    };
+    document.addEventListener('touchstart', handleGlobalTouch);
+    return () => document.removeEventListener('touchstart', handleGlobalTouch);
+  }, []);
 
   const isValid = () => {
     if (q.optional) return true;

@@ -851,11 +851,12 @@ body {
   }
   .btn-next {
     flex: 1;
-    padding: 14px 20px;
-    min-height: 48px;
+    padding: 16px 20px;
+    min-height: 56px;
     font-size: 15px;
     touch-action: manipulation;
     pointer-events: auto;
+    outline: 2px solid red;
   }
   .results-header { padding: 32px 24px; }
   .results-title { font-size: 32px; }
