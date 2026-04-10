@@ -826,30 +826,36 @@ body {
   .intake-hero h1 { font-size: 32px; }
   .question-block { flex: 1; }
   .nav-row {
-    position: fixed;
+    position: sticky;
     bottom: 0;
     left: 0;
     right: 0;
     padding: 16px 24px;
     background: var(--cream);
     border-top: 1px solid var(--border);
-    z-index: 999;
+    z-index: 1000;
     display: flex;
     gap: 12px;
     align-items: center;
     box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
     height: 80px;
+    touch-action: manipulation;
+    pointer-events: auto;
   }
   .btn-back {
     flex-shrink: 0;
     padding: 14px 16px;
     min-height: 48px;
+    touch-action: manipulation;
+    pointer-events: auto;
   }
   .btn-next {
     flex: 1;
     padding: 14px 20px;
     min-height: 48px;
     font-size: 15px;
+    touch-action: manipulation;
+    pointer-events: auto;
   }
   .results-header { padding: 32px 24px; }
   .results-title { font-size: 32px; }
