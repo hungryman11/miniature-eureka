@@ -1,9 +1,12 @@
 import { useState } from "react";
 import Intake from "./components/Intake";
 import Results from "./components/Results";
+import ButtonTest from "./components/ButtonTest";
 import "./index.css";
 
 export default function App() {
+  // Temporarily testing button
+  return <ButtonTest />;
   const [stage, setStage] = useState("intake"); // intake | loading | results
   const [userData, setUserData] = useState(null);
   const [opportunities, setOpportunities] = useState([]);
